@@ -37,6 +37,9 @@ const testCases = [
 
   // NaN handling
   { input: Number.NaN, expected: 'NaN' },
+
+  // Bug fix: trailing decimal point should be removed
+  { input: 12.2 / 0.1, expected: '122' },
 ]
 
 console.log('Testing nstr function:')

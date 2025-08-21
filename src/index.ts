@@ -80,19 +80,29 @@ function nstr(
     // Clean up trailing zeros and decimal point
     let result = truncated.replace(/\.?0+$/, '')
     
+    // Remove trailing decimal point if it exists (e.g., "122." -> "122")
+    if (result.endsWith('.')) {
+      result = result.slice(0, -1)
+    }
+    
     // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-    if (result === '-0.' || result === '0.' || result === '-0') {
+    if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
       result = '0'
     }
     
     return result
   }
 
-  // No pattern found, clean up trailing zeros
+  // No pattern found, clean up trailing zeros and decimal point
   let result = str.replace(/\.?0+$/, '')
   
+  // Remove trailing decimal point if it exists (e.g., "122." -> "122")
+  if (result.endsWith('.')) {
+    result = result.slice(0, -1)
+  }
+  
   // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-  if (result === '-0.' || result === '0.' || result === '-0') {
+  if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
     result = '0'
   }
   
