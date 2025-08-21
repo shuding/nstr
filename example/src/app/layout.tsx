@@ -1,0 +1,24 @@
+import type { Metadata } from "next";
+import { GeistMono } from "geist/font/mono";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "nstr - Number to string, but elegantly",
+  description: "Auto stringify numbers in JavaScript with smart precision detection",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body
+        className={`${GeistMono.className} font-mono antialiased`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}

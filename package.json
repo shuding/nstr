@@ -1,0 +1,40 @@
+{
+  "name": "nstr",
+  "version": "1.0.0",
+  "description": "Auto stringify numbers in JavaScript with smart precision detection",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunchee",
+    "test": "node test.js",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "number",
+    "string",
+    "stringify",
+    "precision",
+    "floating-point",
+    "javascript",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "bunchee": "^6.6.0",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@8.7.0"
+}
