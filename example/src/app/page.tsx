@@ -109,7 +109,7 @@ export default function Home() {
       if (typeof result === 'number') {
         setCustomNumber(result)
       }
-    } catch (e) {
+    } catch {
       // Invalid expression, keep previous value
     }
   }
@@ -159,7 +159,7 @@ export default function Home() {
           </p>
           <p className='mb-6 text-neutral-400 text-sm'>
             The challenge: native APIs require fixed parameters. `toFixed(4)`
-            works for 123.45670001 but destroys 0.0000001 → "0.0000"
+            works for 123.45670001 but destroys 0.0000001 → &ldquo;0.0000&rdquo;
           </p>
           <div className='flex flex-col gap-4'>
             {problemExamples.map((example, idx) => (
@@ -319,21 +319,21 @@ export default function Home() {
             <div className='mb-2 text-neutral-500'># Install</div>
             <div className='mb-8'>npm install nstr</div>
             <div className='mb-2 text-neutral-500'># Basic usage</div>
-            <div className='mb-2'>import nstr from 'nstr'</div>
+            <div className='mb-2'>import nstr from &apos;nstr&apos;</div>
             <div className='mb-0'>const result = nstr(0.1 + 0.2)</div>
-            <div className='mb-8 text-neutral-500'>// result: "0.3"</div>
+            <div className='mb-8 text-neutral-500'>{"// result: “0.3”"}</div>
             <div className='mb-2 text-neutral-500'>
               # Advanced: configure precision detection
             </div>
             <div className='mb-0'>nstr(Math.PI, {'{ maxDecimals: 4 }'})</div>
-            <div className='mb-2 text-neutral-500'>// result: "3.1416"</div>
+            <div className='mb-2 text-neutral-500'>{"// result: “3.1416”"}</div>
             <div className='mb-0'>nstr(0.1239991, {'{ threshold: 2 }'})</div>
             <div className='mb-2 text-neutral-500'>
-              // result: "0.123" (detects shorter patterns)
+              {"// result: “0.123” (detects shorter patterns)"}
             </div>
             <div className='mb-0'>nstr(0.1239991, {'{ threshold: 5 }'})</div>
             <div className='mb-2 text-neutral-500'>
-              // result: "0.1239991" (be more precise)
+              {"// result: “0.1239991” (be more precise)"}
             </div>
           </div>
         </div>
