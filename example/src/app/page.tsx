@@ -47,6 +47,13 @@ const problemExampleData = [
     toPrecision4Status: 'error',
   },
   {
+    value: 12.2 / 0.1,
+    display: '12.2 / 0.1',
+    toStringStatus: 'error',
+    toFixed4Status: 'warning',
+    toPrecision4Status: 'warning',
+  },
+  {
     value: -0.0000001,
     display: '-0.0000001',
     toStringStatus: 'error',
