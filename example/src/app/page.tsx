@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import nstr from 'nstr'
 
 const problemExampleData = [
@@ -118,12 +118,48 @@ export default function Home() {
     null
   )
   const [loadTime] = useState(Date.now())
+  const titleRef = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
     // Inject nstr to window for global access
     ;(window as typeof window & { nstr: typeof nstr }).nstr = nstr
     console.log('nstr() is available globally! Use it in your console.')
     console.log('Example: nstr(0.1 + 0.2) ===', JSON.stringify(nstr(0.1 + 0.2)))
+  }, [])
+
+  useEffect(() => {
+    const element = titleRef.current
+    if (!element) return
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault()
+      const rect = element.getBoundingClientRect()
+      const touch = e.touches[0]
+      if (touch) {
+        setMousePos({
+          x: touch.clientX - rect.left,
+          y: touch.clientY - rect.top,
+        })
+      }
+    }
+
+    const handleTouchStart = (e: TouchEvent) => {
+      e.preventDefault()
+    }
+
+    const handleTouchEnd = () => {
+      setMousePos(null)
+    }
+
+    element.addEventListener('touchmove', handleTouchMove, { passive: false })
+    element.addEventListener('touchstart', handleTouchStart, { passive: false })
+    element.addEventListener('touchend', handleTouchEnd)
+
+    return () => {
+      element.removeEventListener('touchmove', handleTouchMove)
+      element.removeEventListener('touchstart', handleTouchStart)
+      element.removeEventListener('touchend', handleTouchEnd)
+    }
   }, [])
 
   const getCharPosition = (ascii: string, hashIndex: number) => {
@@ -245,11 +281,12 @@ export default function Home() {
   }
 
   return (
-    <div className='min-h-screen bg-white text-black p-8 pt-24 font-mono selection:bg-black selection:text-white tracking-[-0.005em] font-light'>
+    <div className='min-h-screen bg-white text-black p-4 md:p-8 pt-20 md:pt-24 font-mono selection:bg-black selection:text-white tracking-[-0.005em] font-light'>
       <div className='mx-auto max-w-4xl flex flex-col gap-8'>
         {/* Header */}
         <div className='text-center pb-8 mb-8'>
           <a
+            ref={titleRef}
             href='https://github.com/shuding/nstr'
             target='_blank'
             rel='noopener noreferrer'
@@ -268,7 +305,7 @@ export default function Home() {
             {animateAscii(baseAscii, animationFrame, mousePos)}
           </a>
           <p className='text-xl font-normal mb-2 text-neutral-800'>
-            number → string, but looks good
+            number → string,<br className='md:hidden' /> but looks good
           </p>
           <p className='text-sm text-neutral-600'>
             Automatically detects and fixes floating-point precision issues •{' '}
@@ -284,7 +321,7 @@ export default function Home() {
         </div>
 
         {/* The Problem */}
-        <div className='bg-black text-white p-6 mb-8 border-2 border-white shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.25)]'>
+        <div className='bg-black text-white p-4 md:p-6 mb-8 border-2 border-white shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.25)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b-2 border-neutral-600 pb-2'>
             THE PROBLEM
           </h2>
@@ -309,7 +346,7 @@ export default function Home() {
                 <code className='text-sm text-neutral-300 md:w-42 flex-shrink-0'>
                   {example.display}
                 </code>
-                <div className='grid grid-cols-2 md:flex md:items-center gap-3 md:space-x-4 md:gap-0'>
+                <div className='grid grid-cols-1 md:flex md:items-center gap-3 md:space-x-4 md:gap-0'>
                   <div className='text-left md:text-right md:w-42'>
                     <div className='text-xs mb-1 text-neutral-400'>
                       .toString()
@@ -346,7 +383,7 @@ export default function Home() {
                       {example.toPrecision4}
                     </code>
                   </div>
-                  <div className='text-left md:text-right md:w-24 col-span-2 md:col-span-1'>
+                  <div className='text-left md:text-right md:w-24'>
                     <div className='text-xs mb-1 text-white font-semibold'>
                       nstr()
                     </div>
@@ -361,7 +398,7 @@ export default function Home() {
         </div>
 
         {/* Interactive Demo */}
-        <div className='bg-neutral-100 border-2 border-white p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
+        <div className='bg-neutral-100 border-2 border-white p-4 md:p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b border-neutral-300 pb-2'>
             INTERACTIVE DEMO
           </h2>
@@ -450,7 +487,7 @@ export default function Home() {
         </div>
 
         {/* Usage */}
-        <div className='bg-neutral-100 border-2 border-white p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
+        <div className='bg-neutral-100 border-2 border-white p-4 md:p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b border-neutral-300 pb-2'>
             USAGE
           </h2>
@@ -481,7 +518,7 @@ export default function Home() {
         </div>
 
         {/* How Does It Work */}
-        <div className='bg-neutral-100 border-2 border-white p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
+        <div className='bg-neutral-100 border-2 border-white p-4 md:p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b border-neutral-300 pb-2'>
             HOW DOES IT WORK?
           </h2>
