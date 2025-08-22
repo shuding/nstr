@@ -453,22 +453,22 @@ export default function Home() {
             <div className='mb-2 text-neutral-500'># Basic usage</div>
             <div className='mb-2'>import nstr from &apos;nstr&apos;</div>
             <div className='mb-0'>const result = nstr(0.1 + 0.2)</div>
-            <div className='mb-8 text-neutral-500'>{'// result: "0.3"'}</div>
+            <div className='mb-8 text-neutral-500'>{`// result: "0.3"`}</div>
             <div className='mb-2 text-neutral-500'>
               # Advanced: configure max decimals, defaults to 10
             </div>
             <div className='mb-0'>nstr(Math.PI, {'{ maxDecimals: 4 }'})</div>
-            <div className='mb-8 text-neutral-500'>{'// result: "3.1416"'}</div>
+            <div className='mb-8 text-neutral-500'>{`// result: "3.1416"`}</div>
             <div className='mb-2 text-neutral-500'>
               # Advanced: configure precision detection, defaults to 4
             </div>
             <div className='mb-0'>nstr(0.1239991, {'{ threshold: 2 }'})</div>
             <div className='mb-2 text-neutral-500'>
-              {'// result: "0.123" (detects shorter patterns)'}
+              {`// result: "0.123" (detects shorter patterns)`}
             </div>
             <div className='mb-0'>nstr(0.1239991, {'{ threshold: 5 }'})</div>
             <div className='mb-2 text-neutral-500'>
-              {'// result: "0.1239991" (be more precise)'}
+              {`// result: "0.1239991" (be more precise)`}
             </div>
           </div>
         </div>
@@ -493,7 +493,7 @@ export default function Home() {
                 cap maximum digits
               </div>
               <div className='font-mono text-sm bg-white px-3 py-2 border border-neutral-300'>
-                0.14499999582767487 → "0.1449999958"
+                0.14499999582767487 → &ldquo;0.1449999958&rdquo;
               </div>
             </div>
 
@@ -502,7 +502,7 @@ export default function Home() {
                 Step 2: Detect consecutive patterns
               </div>
               <div className='text-xs text-neutral-600 mb-2'>
-                Look for consecutive "0"s or "9"s longer than threshold=4
+                Look for consecutive &ldquo;0&rdquo;s or &ldquo;9&rdquo;s longer than threshold=4
               </div>
               <div className='font-mono text-sm bg-white px-3 py-2 pb-6 border border-neutral-300 relative'>
                 <span>0.144</span>
@@ -512,7 +512,7 @@ export default function Home() {
                   <span className='relative text-transparent border-t border-neutral-500'>
                     99999
                     <span className='absolute left-0 -top-1 text-[10px] text-neutral-500 mt-1'>
-                      5 consecutive "9"s detected
+                      5 consecutive &ldquo;9&rdquo;s detected
                     </span>
                   </span>
                 </div>
@@ -528,7 +528,7 @@ export default function Home() {
                 Remove succeeding digits after the pattern
               </div>
               <div className='font-mono text-sm bg-white px-3 py-2 border border-neutral-300'>
-                "0.1449999958" → "0.145"
+                &ldquo;0.1449999958&rdquo; → &ldquo;0.145&rdquo;
               </div>
             </div>
           </div>
