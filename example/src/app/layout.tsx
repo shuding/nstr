@@ -5,6 +5,18 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'nstr - number to string, but looks good',
   description: 'Stringify numbers in JavaScript with smart precision detection',
+  openGraph: {
+    title: 'nstr - number to string, but looks good',
+    description: 'Stringify numbers in JavaScript with smart precision detection',
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'nstr',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'nstr - number to string, but looks good',
+    description: 'Stringify numbers in JavaScript with smart precision detection',
+  },
 }
 
 export default function RootLayout({

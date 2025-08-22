@@ -119,6 +119,13 @@ export default function Home() {
   )
   const [loadTime] = useState(Date.now())
 
+  useEffect(() => {
+    // Inject nstr to window for global access
+    ;(window as any).nstr = nstr
+    console.log('nstr() is available globally! Use it in your console.')
+    console.log('Example: nstr(0.1 + 0.2) ===', JSON.stringify(nstr(0.1 + 0.2)))
+  }, [])
+
   const getCharPosition = (ascii: string, hashIndex: number) => {
     const lines = ascii.split('\n')
     let currentHashCount = 0
@@ -502,7 +509,8 @@ export default function Home() {
                 Step 2: Detect consecutive patterns
               </div>
               <div className='text-xs text-neutral-600 mb-2'>
-                Look for consecutive &ldquo;0&rdquo;s or &ldquo;9&rdquo;s longer than threshold=4
+                Look for consecutive &ldquo;0&rdquo;s or &ldquo;9&rdquo;s longer
+                than threshold=4
               </div>
               <div className='font-mono text-sm bg-white px-3 py-2 pb-6 border border-neutral-300 relative'>
                 <span>0.144</span>
