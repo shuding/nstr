@@ -1,7 +1,7 @@
 {
   "name": "nstr",
-  "version": "0.1.1",
-  "description": "Auto stringify numbers in JavaScript with smart precision detection",
+  "version": "0.1.2",
+  "description": "Stringify numbers in JavaScript with smart precision detection",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -29,8 +29,8 @@
     "javascript",
     "typescript"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "Shu Ding <g@shud.in>",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^24.3.0",
     "bunchee": "^6.6.0",
