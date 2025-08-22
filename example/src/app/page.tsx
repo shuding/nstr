@@ -321,7 +321,7 @@ export default function Home() {
         </div>
 
         {/* The Problem */}
-        <div className='bg-black text-white p-4 md:p-6 mb-8 border-2 border-white shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.25)]'>
+        <div className='bg-black selection:bg-white *:selection:text-black text-white p-4 md:p-6 mb-8 border-2 border-white shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.25)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b-2 border-neutral-600 pb-2'>
             THE PROBLEM
           </h2>
@@ -487,7 +487,7 @@ export default function Home() {
         </div>
 
         {/* Usage */}
-        <div className='bg-neutral-100 border-2 border-white p-4 md:p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
+        <div className='bg-neutral-100 selection:bg-white *:selection:text-black border-2 border-white p-4 md:p-6 mb-8 shadow-[10px_10px_0px_-2px_rgba(0,0,0,0.15)]'>
           <h2 className='text-2xl font-extralight mb-4 border-b border-neutral-300 pb-2'>
             USAGE
           </h2>
