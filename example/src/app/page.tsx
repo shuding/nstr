@@ -609,12 +609,12 @@ export default function Home() {
             </a>{' '}
             with{' '}
             <a
-              href='https://v0.dev'
+              href='https://v0.app'
               target='_blank'
               rel='noopener noreferrer'
               className='text-neutral-600 hover:text-white hover:bg-black transition-colors px-0.5'
             >
-              [v0.dev]
+              [v0.app]
             </a>
           </p>
         </div>
