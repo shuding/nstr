@@ -121,7 +121,7 @@ export default function Home() {
 
   useEffect(() => {
     // Inject nstr to window for global access
-    ;(window as any).nstr = nstr
+    ;(window as typeof window & { nstr: typeof nstr }).nstr = nstr
     console.log('nstr() is available globally! Use it in your console.')
     console.log('Example: nstr(0.1 + 0.2) ===', JSON.stringify(nstr(0.1 + 0.2)))
   }, [])
