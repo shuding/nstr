@@ -60,6 +60,13 @@ const problemExampleData = [
     toFixed4Status: 'warning',
     toPrecision4Status: 'error',
   },
+  {
+    value: 123.123456789,
+    display: '123.123456789',
+    toStringStatus: 'ok',
+    toFixed4Status: 'warning',
+    toPrecision4Status: 'warning',
+  },
 ]
 
 const problemExamples = problemExampleData.map((example) => ({
@@ -333,9 +340,13 @@ export default function Home() {
             Native APIs require fixed parameters. For example `toFixed(4)` works
             for 123.45670001 but destroys 0.0000001 → &ldquo;0.0000&rdquo;.
           </p>
+          <p className='mb-3 text-neutral-400 text-sm'>
+            Tricks like `+(n.toFixed(4)).toString()` remove extra 0s but still requires a
+            fixed decimal length and it is still rounding (changing) the value.
+          </p>
           <p className='mb-6 text-neutral-400 text-sm'>
-            `nstr()` automatically detects the best precision for you, and
-            rounds numbers to the closest human-friendly format.
+            `nstr()` automatically fixes potential number errors, and
+            formats numbers to string without losing precisions.
           </p>
           <div className='flex flex-col gap-4'>
             {problemExamples.map((example, idx) => (
