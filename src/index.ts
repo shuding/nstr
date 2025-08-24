@@ -60,8 +60,8 @@ function nstr(
     // Truncate at the start of the detected artifact
     let truncated = str.substring(0, patternStart)
 
-    // Special handling for runs of 9s → may require rounding up
     if (patternChar === '9') {
+      // If we found a run of 9s, round up properly
       const beforeNines = truncated
       const rounded = Number.parseFloat(beforeNines)
 
@@ -75,10 +75,7 @@ function nstr(
       // Round away from zero
       const roundedUp = rounded < 0 ? rounded - increment : rounded + increment
 
-      // Use rounded version if it's cleaner
-      if (roundedUp.toString().length <= beforeNines.length) {
-        truncated = roundedUp.toString()
-      }
+      truncated = roundedUp.toFixed(decimals)
     }
 
     result = truncated
