@@ -30,6 +30,7 @@ const testCases = [
   { input: 456.78999999456789, expected: '456.79' },
   { input: 789.123999999876543, expected: '789.124' },
   { input: 2468.135999999024681, expected: '2468.136' },
+  { input: 451.78999999456789, expected: '451.79' },
 
   // Mixed cases with longer sequences
   { input: 12345.678900000123456, expected: '12345.6789' },
