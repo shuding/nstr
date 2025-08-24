@@ -15,7 +15,7 @@ function nstr(
 
   if (Number.isNaN(value)) return 'NaN'
 
-  // Handle special cases
+  // Handle Infinity and -Infinity
   if (!isFinite(value)) return value.toString()
   if (Number.isInteger(value)) return value.toString()
 
@@ -42,70 +42,64 @@ function nstr(
         j++
       }
 
-      // If we found enough consecutive digits, mark the pattern
+      // If enough consecutive digits found, mark as artifact
       if (consecutiveCount >= threshold) {
         patternStart = i
         patternChar = char
         break
       }
 
-      // Skip ahead to avoid rechecking
+      // Skip ahead to avoid redundant checks
       i = j - 1
     }
   }
 
+  let result: string
+
   if (patternStart !== -1) {
-    // Truncate at the start of the pattern
+    // Truncate at the start of the detected artifact
     let truncated = str.substring(0, patternStart)
 
-    // If we found 9s, we might need to round up
+    // Special handling for runs of 9s → may require rounding up
     if (patternChar === '9') {
       const beforeNines = truncated
       const rounded = Number.parseFloat(beforeNines)
 
-      // Check if rounding up changes the result significantly
-      const increment = Math.pow(
-        10,
-        -(beforeNines.length - beforeNines.indexOf('.') - 1)
-      )
-      // For negative numbers, subtract the increment to round away from zero
+      // Determine increment based on decimal precision
+      const decimals =
+        beforeNines.indexOf('.') >= 0
+          ? beforeNines.length - beforeNines.indexOf('.') - 1
+          : 0
+      const increment = Math.pow(10, -decimals)
+
+      // Round away from zero
       const roundedUp = rounded < 0 ? rounded - increment : rounded + increment
 
-      // Use the rounded version if it's cleaner
+      // Use rounded version if it's cleaner
       if (roundedUp.toString().length <= beforeNines.length) {
         truncated = roundedUp.toString()
       }
     }
 
-    // Clean up trailing zeros and decimal point
-    let result = truncated.replace(/\.?0+$/, '')
-    
-    // Remove trailing decimal point if it exists (e.g., "122." -> "122")
-    if (result.endsWith('.')) {
-      result = result.slice(0, -1)
-    }
-    
-    // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-    if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
-      result = '0'
-    }
-    
-    return result
+    result = truncated
+  } else {
+    // No artifact found → use the original fixed string
+    result = str
   }
 
-  // No pattern found, clean up trailing zeros and decimal point
-  let result = str.replace(/\.?0+$/, '')
-  
-  // Remove trailing decimal point if it exists (e.g., "122." -> "122")
+  // Clean up trailing zeros and decimal point
+  result = result.replace(/\.?0+$/, '')
+
+  // Remove trailing decimal point if it exists (e.g., "122." → "122")
   if (result.endsWith('.')) {
     result = result.slice(0, -1)
   }
-  
-  // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-  if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
+
+  // Normalize negative zero to plain zero
+  if (result === '-0') {
     result = '0'
   }
-  
+
   return result
 }
 
