@@ -24,7 +24,6 @@ function nstr(
 
   // Find patterns of consecutive 0s or 9s in the decimal part only
   let patternStart = -1
-  let patternChar = ''
   const decimalIndex = str.indexOf('.')
 
   // Only look for patterns after the decimal point
@@ -45,7 +44,6 @@ function nstr(
       // If we found enough consecutive digits, mark the pattern
       if (consecutiveCount >= threshold) {
         patternStart = i
-        patternChar = char
         break
       }
 
@@ -55,58 +53,23 @@ function nstr(
   }
 
   if (patternStart !== -1) {
-    // Truncate at the start of the pattern
-    let truncated = str.substring(0, patternStart)
-
-    // If we found 9s, we might need to round up
-    if (patternChar === '9') {
-      const beforeNines = truncated
-      const rounded = Number.parseFloat(beforeNines)
-
-      // Check if rounding up changes the result significantly
-      const increment = Math.pow(
-        10,
-        -(beforeNines.length - beforeNines.indexOf('.') - 1)
-      )
-      // For negative numbers, subtract the increment to round away from zero
-      const roundedUp = rounded < 0 ? rounded - increment : rounded + increment
-
-      // Use the rounded version if it's cleaner
-      if (roundedUp.toString().length <= beforeNines.length) {
-        truncated = roundedUp.toString()
-      }
-    }
-
-    // Clean up trailing zeros and decimal point
-    let result = truncated.replace(/\.?0+$/, '')
-    
-    // Remove trailing decimal point if it exists (e.g., "122." -> "122")
-    if (result.endsWith('.')) {
-      result = result.slice(0, -1)
-    }
-    
-    // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-    if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
-      result = '0'
-    }
-    
-    return result
+    // Use toFixed() again according to the truncated index
+    const fractionDigits = patternStart - decimalIndex - 1
+    const result = value.toFixed(fractionDigits)
+    return cleanup(result)
   }
+
+  return cleanup(str)
+}
+
+function cleanup(str: string): string {
+  // Handle edge cases: "-0" becomes "0".
+  if (str === '0' || str === '-0') return '0'
 
   // No pattern found, clean up trailing zeros and decimal point
-  let result = str.replace(/\.?0+$/, '')
-  
-  // Remove trailing decimal point if it exists (e.g., "122." -> "122")
-  if (result.endsWith('.')) {
-    result = result.slice(0, -1)
-  }
-  
-  // Handle edge cases: "-0." becomes "0", "0." becomes "0", "-0" becomes "0"
-  if (result === '-0.' || result === '0.' || result === '-0' || result === '0') {
-    result = '0'
-  }
-  
-  return result
+  str = str.replace(/\.?0+$/, '')
+
+  return str
 }
 
 // Default export
