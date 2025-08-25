@@ -40,6 +40,22 @@ const testCases = [
 
   // Bug fix: trailing decimal point should be removed
   { input: 12.2 / 0.1, expected: '122' },
+
+  // Regression tests for rounding bug fixes
+  { input: 0.149999, expected: '0.15' }, // Should round up from 0.14
+  { input: 0.059999, expected: '0.06' }, // Should round up from 0.05
+  { input: 0.249999, expected: '0.25' }, // Should round up from 0.24
+  { input: 0.349999, expected: '0.35' }, // Should round up from 0.34
+  { input: 1.149999, expected: '1.15' }, // Should round up from 1.14
+  { input: 10.149999, expected: '10.15' }, // Should round up from 10.14
+  
+  // Additional edge cases for rounding with different precisions
+  { input: 0.0149999, expected: '0.015' }, // Three decimal places
+  { input: 0.00149999, expected: '0.0015' }, // Four decimal places
+  { input: 12.3499999, expected: '12.35' }, // Larger number with rounding
+  { input: -0.149999, expected: '-0.15' }, // Negative number rounding
+  { input: -0.059999, expected: '-0.06' }, // Negative number rounding
+  { input: 123.456789999999, expected: '123.45679' }, // Long decimal with trailing 9s
 ]
 
 console.log('Testing nstr function:')

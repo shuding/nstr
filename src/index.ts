@@ -63,16 +63,19 @@ function nstr(
       const beforeNines = truncated
       const rounded = Number.parseFloat(beforeNines)
 
-      // Check if rounding up changes the result significantly
-      const increment = Math.pow(
-        10,
-        -(beforeNines.length - beforeNines.indexOf('.') - 1)
-      )
+      // Calculate the increment for the last digit position
+      const decimalPos = beforeNines.indexOf('.')
+      const decimalPlaces = decimalPos >= 0 ? beforeNines.length - decimalPos - 1 : 0
+      const increment = Math.pow(10, -decimalPlaces)
+      
       // For negative numbers, subtract the increment to round away from zero
       const roundedUp = rounded < 0 ? rounded - increment : rounded + increment
 
-      // Use the rounded version if it's cleaner
-      if (roundedUp.toString().length <= beforeNines.length) {
+      // Format the rounded result to avoid floating-point precision issues
+      // Use the same number of decimal places as the original truncated string
+      if (decimalPlaces > 0) {
+        truncated = roundedUp.toFixed(decimalPlaces)
+      } else {
         truncated = roundedUp.toString()
       }
     }

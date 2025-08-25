@@ -1,6 +1,6 @@
 {
   "name": "nstr",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Stringify numbers in JavaScript with smart precision detection",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
