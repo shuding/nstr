@@ -114,3 +114,4 @@ function nstr(
 
 // Default export
 export default nstr
+export { nstr }
