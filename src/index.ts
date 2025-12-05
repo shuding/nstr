@@ -97,7 +97,7 @@ function nstr(
   }
 
   // No pattern found, clean up trailing zeros and decimal point
-  let result = str.replace(/\.?0+$/, '')
+  let result = str.replace(/\.0*$/, '')
   
   // Remove trailing decimal point if it exists (e.g., "122." -> "122")
   if (result.endsWith('.')) {
